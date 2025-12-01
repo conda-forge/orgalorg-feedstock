@@ -2,7 +2,7 @@
 
 set -o xtrace -o nounset -o pipefail -o errexit
 
-go build -mod=mod -buildmode=pie -trimpath -o=${PREFIX}/bin/${PKG_NAME} -ldflags="-s -w -X main.version=${PKG_VERSION}"
+go build -mod=mod -o=${PREFIX}/bin/${PKG_NAME} -ldflags="-s -w -X main.version=${PKG_VERSION}"
 go-licenses save . --save_path=license-files \
 	--ignore github.com/kovetskiy/lorg \
 	--ignore github.com/reconquest/nopio-go \

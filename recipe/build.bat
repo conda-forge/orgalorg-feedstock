@@ -1,4 +1,7 @@
-go build -mod=mod -buildmode=pie -trimpath -o=%LIBRARY_PREFIX%\bin\%PKG_NAME%.exe -ldflags="-s -w -X main.version=%PKG_VERSION%" || goto :error
+@echo on
+@setlocal EnableDelayedExpansion
+
+go build -mod=mod -o=%LIBRARY_PREFIX%\bin\%PKG_NAME%.exe -ldflags="-s -w -X main.version=%PKG_VERSION%" || goto :error
 go-licenses save . --save_path=license-files ^
 	--ignore github.com/kovetskiy/lorg ^
 	--ignore github.com/reconquest/nopio-go ^
@@ -9,7 +12,7 @@ go-licenses save . --save_path=license-files ^
 :: Manually copy licenses that go-licenses could not download
 xcopy /s %RECIPE_DIR%\license-files\* %SRC_DIR%\license-files || goto :error
 
-goto :EOF
+goto :eof
 
 :error
 echo Failed with error #%errorlevel%.
